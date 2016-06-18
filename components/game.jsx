@@ -1,18 +1,26 @@
 var React = require('react');
-var Board = require('./board');
+var BoardComponent = require('./board');
+var Board = require('../js/board');
 
 var Game = React.createClass({
 
   getInitialState: function() {
     return {
-      player: "x"
+      board: new Board
     };
+  },
+
+  updateBoard: function(pos) {
+    this.state.board.placeMark(pos);
+    this.setState({ board: this.state.board });
   },
 
   render: function() {
 
     return (
-      <div><Board player={this.state.player}/></div>
+      <div>
+        <BoardComponent board={this.state.board} updateBoard={this.updateBoard}/>
+      </div>
     );
   }
 

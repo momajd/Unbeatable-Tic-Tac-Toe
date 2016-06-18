@@ -11,4 +11,6 @@
 
 .board {
   width:306px;
+  height: 306px;
+  border: 1px solid black;
 }

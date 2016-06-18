@@ -9,8 +9,13 @@ var Tile = React.createClass({
   },
 
   handleClick: function () {
-    // console.log(this.props.position);
-    this.setState({mark: this.props.player});
+    if (this.props.board.turn === "x") {
+      this.state.mark = "x";
+    } else {
+      this.state.mark = "o";
+    }
+    // updating the board will trigger re-render
+    this.props.updateBoard(this.props.position);
   },
 
   render: function() {

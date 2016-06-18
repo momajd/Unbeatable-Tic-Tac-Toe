@@ -9,10 +9,12 @@ var Game = React.createClass({
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         tiles.push(
-          <Tile 
+          <Tile
             key={3*i + j}
             position={[i, j]}
-            player={this.props.player} />);
+            board={this.props.board}
+            updateBoard={this.props.updateBoard}
+            />);
       }
     }
 
