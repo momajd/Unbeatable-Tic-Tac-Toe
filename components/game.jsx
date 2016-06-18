@@ -1,17 +1,18 @@
 var React = require('react');
-var Tile = require('./tile');
+var Board = require('./board');
 
 var Game = React.createClass({
 
-  render: function() {
-    var row = [];
+  getInitialState: function() {
+    return {
+      player: "x"
+    };
+  },
 
-    for (var i = 0; i < 3; i++) {
-      row.push(<Tile key={i}/>);
-    }
+  render: function() {
 
     return (
-      <div>{row}</div>
+      <div><Board player={this.state.player}/></div>
     );
   }
 
