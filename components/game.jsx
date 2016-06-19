@@ -12,6 +12,12 @@ var Game = React.createClass({
 
   updateBoard: function(pos) {
     this.state.board.placeMark(pos);
+
+    if (!this.state.board.isOver()) {
+      var compMove = this.state.board.player2.move(this.state.board);
+      this.state.board.placeMark(compMove);
+    }
+    
     this.setState({ board: this.state.board });
   },
 

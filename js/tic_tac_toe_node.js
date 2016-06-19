@@ -2,7 +2,7 @@ var Board = require('./board');
 
 var TicTacToeNode = function (board, prevMovePos) {
   this.board = board;
-  this.prevMoverPos = prevMovePos;
+  this.prevMovePos = prevMovePos;
 };
 
 TicTacToeNode.prototype.children = function () {
@@ -43,7 +43,7 @@ TicTacToeNode.prototype.isLosingNode = function (evaluator) {
 };
 
 TicTacToeNode.prototype.isWinningNode = function (evaluator) {
-  if ( this.board.isOver() ) {return this.board.winner === evaluator;}
+  if ( this.board.isOver() ) {return this.board.winner() === evaluator;}
 
   var children = this.children();
   if (this.board.turn === evaluator){

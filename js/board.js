@@ -1,8 +1,9 @@
 var Player = require('./player');
+var ComputerPlayer = require('./computer_player');
 
 var Board = function (player1, player2, turn) {
   this.player1 = player1 ? player1 : new Player("x");
-  this.player2 = player2 ? player2 : new Player("o");
+  this.player2 = player2 ? player2 : new ComputerPlayer("o");
 
   // turn must be passed in when we create all of the children boards for AI
   this.turn = turn ? turn : this.player1.mark;
@@ -13,6 +14,11 @@ Board.prototype.placeMark = function (pos) {
   var row = pos[0], col = pos[1];
   this.rows[row][col] = this.turn;
   this.turn = this.turn === this.player1.mark ? this.player2.mark : this.player1.mark;
+};
+
+Board.prototype.markAt = function(pos) {
+  var row = pos[0], col = pos[1];
+  return this.rows[row][col];
 };
 
 Board.prototype.columns = function () {
@@ -30,7 +36,11 @@ Board.prototype.columns = function () {
 Board.prototype.diagonals = function () {
   var topLeft = [[0, 0], [1, 1], [2, 2]];
   var topRight = [[0, 2], [1, 1], [2, 0]];
-  return [topLeft, topRight];
+
+  var diags = [];
+  diags.push(topLeft.map(function(pos) {return this.markAt(pos); }, this));
+  diags.push(topRight.map(function(pos) {return this.markAt(pos); }, this));
+  return diags;
 };
 
 Board.prototype.winner = function () {
@@ -65,8 +75,7 @@ Board.prototype.isOver = function () {
 };
 
 Board.prototype.isEmptyAt = function (pos) {
-  var row = pos[0], col = pos[1];
-  return !this.rows[row][col];
+  return !this.markAt(pos);
 };
 
 Board.prototype.cloneBoard = function () {
@@ -76,6 +85,12 @@ Board.prototype.cloneBoard = function () {
     return row.slice(0);
   });
   return clone;
+};
+
+Board.prototype.printRows = function () {
+  this.rows.forEach(function(row) {
+    console.log(row);
+  });
 };
 
 // Arrays cannot be compared with '===' in JS
