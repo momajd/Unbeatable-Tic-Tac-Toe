@@ -1,6 +1,7 @@
 var Player = require('./player');
 
 var Board = function () {
+  // TODO pass players as arguments
   this.player1 = new Player("x");
   this.player2 = new Player("o");
   this.turn = this.player1.mark;
