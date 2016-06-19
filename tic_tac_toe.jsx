@@ -4,7 +4,9 @@ const ReactDOM = require('react-dom');
 var Game = require('./components/game');
 
 // TODO remove after testing
-// window.Board = Board
+window.Board = require('./js/board');
+window.TicTacToeNode = require('./js/tic_tac_toe_node');
+window.ComputerPlayer = require('./js/computer_player');
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(<Game />, document.getElementById('main'));

@@ -27,9 +27,12 @@ var Game = React.createClass({
     var modal;
     if (this.state.board.isWon() || this.state.board.isTie() ) {
       // we don't need to check if player won because that should never happen
-      var text = this.state.board.isWon() ? "You lost" : "You tied" ;
+      var text = this.state.board.isWon() ?
+                  "No surprise here..." :
+                  "Not bad, a tie is the best that you can do :)" ;
 
       modal = (
+        // TODO link to github on modal
         <div className='modal-screen'>
           <div className='modal-content'>
             <p>{text}</p>

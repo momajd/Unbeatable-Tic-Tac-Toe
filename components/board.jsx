@@ -1,7 +1,7 @@
 var React = require('react');
 var Tile = require('./tile');
 
-var Game = React.createClass({
+var Board = React.createClass({
 
   render: function() {
     var tiles = [];
@@ -13,6 +13,7 @@ var Game = React.createClass({
             key={3*i + j}
             position={[i, j]}
             board={this.props.board}
+            mark={this.props.board.rows[i][j]}
             updateBoard={this.props.updateBoard}
             />);
       }
@@ -25,4 +26,4 @@ var Game = React.createClass({
 
 });
 
-module.exports = Game;
+module.exports = Board;

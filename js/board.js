@@ -1,10 +1,11 @@
 var Player = require('./player');
 
-var Board = function () {
-  // TODO pass players as arguments
-  this.player1 = new Player("x");
-  this.player2 = new Player("o");
-  this.turn = this.player1.mark;
+var Board = function (player1, player2, turn) {
+  this.player1 = player1 ? player1 : new Player("x");
+  this.player2 = player2 ? player2 : new Player("o");
+
+  // turn must be passed in when we create all of the children boards for AI
+  this.turn = turn ? turn : this.player1.mark;
   this.rows = [ Array(3).fill(null), Array(3).fill(null), Array(3).fill(null)];
 };
 
@@ -38,9 +39,9 @@ Board.prototype.winner = function () {
 
   for (var i = 0; i < triples.length; i++) {
     if ( triples[i].isEqualTo([mark1, mark1, mark1]) ) {
-      return this.player1;
+      return this.player1.mark;
     } else if ( triples[i].isEqualTo([mark2, mark2, mark2]) ) {
-      return this.player2;
+      return this.player2.mark;
     }
   }
 };
@@ -57,6 +58,24 @@ Board.prototype.isTie = function () {
     if (flattened[i] === null) {return false;}
   }
   return true;
+};
+
+Board.prototype.isOver = function () {
+  return Boolean(this.isWon() || this.isTie() );
+};
+
+Board.prototype.isEmptyAt = function (pos) {
+  var row = pos[0], col = pos[1];
+  return !this.rows[row][col];
+};
+
+Board.prototype.cloneBoard = function () {
+  var clone = new Board(this.player1, this.player2, this.turn);
+
+  clone.rows = this.rows.map(function(row) {
+    return row.slice(0);
+  });
+  return clone;
 };
 
 // Arrays cannot be compared with '===' in JS
