@@ -1,32 +1,42 @@
 var React = require('react');
 var BoardComponent = require('./board');
 var Board = require('../js/board');
+var Player = require('../js/player');
+var ComputerPlayer = require('../js/computer_player');
 
 var Game = React.createClass({
 
   getInitialState: function() {
     return {
-      board: new Board
+      board: new Board,
+      userGoesFirst: true
     };
   },
 
   updateBoard: function(pos) {
-    this.state.board.placeMark(pos);
+    var board = this.state.board;
+    board.placeMark(pos);
 
-    if (!this.state.board.isOver()) {
-      var compMove = this.state.board.player2.move(this.state.board);
-      this.state.board.placeMark(compMove);
+    if (!board.isOver()) {
+      var compPlayer = this.state.userGoesFirst ? board.player2 : board.player1;
+      var compMove = compPlayer.move(board);
+      board.placeMark(compMove);
     }
-    
-    this.setState({ board: this.state.board });
+
+    this.setState({ board: board });
   },
 
   restartGameAsX: function() {
-    this.setState({ board: new Board});
+    this.setState({ board: new Board, userGoesFirst: true});
   },
 
   restartGameAsO: function() {
-    this.setState({ board: new Board});
+    var p1 = new ComputerPlayer('x'), p2 = new Player('o');
+    var board = new Board(p1, p2);
+    var compMove = p1.move(board);
+    board.placeMark(compMove);
+
+    this.setState({ board: board, userGoesFirst: false});
   },
 
   render: function() {
@@ -35,7 +45,7 @@ var Game = React.createClass({
       // we don't need to check if player won because that should never happen
       var text = this.state.board.isWon() ?
                   "No surprise here..." :
-                  "Not bad, a tie is the best that you can do :)" ;
+                  "Not bad; a tie is the best possible outcome" ;
 
       modal = (
         // TODO link to github on modal
