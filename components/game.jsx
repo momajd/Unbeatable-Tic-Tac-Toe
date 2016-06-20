@@ -51,7 +51,6 @@ var Game = React.createClass({
       var fontAwesomeX = <i className='fa fa-times fa-4x' aria-hidden='true'></i>;
 
       modal = (
-        // TODO link to github on modal
         <div className='modal-screen'>
           <div className='modal-content'>
             {endMessage}
