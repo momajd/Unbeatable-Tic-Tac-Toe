@@ -60,7 +60,9 @@ var Game = React.createClass({
             <button className="button" onClick={this.restartGameAsO}>
               Play Again as <br/> {fontAwesomeO}</button>
             <br/>
-            <i className="fa fa-github fa-2x" aria-hidden="true"></i>
+            <a href="https://github.com/momajd/Unbeatable-Tic-Tac-Toe">
+              <i className="fa fa-github fa-2x" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
       );
