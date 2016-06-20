@@ -43,7 +43,7 @@ var Game = React.createClass({
     var modal;
     if (this.state.board.isWon() || this.state.board.isTie() ) {
       // we don't need to check if user won because that should never happen
-      var text = this.state.board.isWon() ?
+      var endMessage = this.state.board.isWon() ?
                   <p className="end-message">No surprise there...</p> :
                   <p className="end-message">Not too bad, considering that it's impossible to win..</p> ;
 
@@ -54,7 +54,7 @@ var Game = React.createClass({
         // TODO link to github on modal
         <div className='modal-screen'>
           <div className='modal-content'>
-            <p>{text}</p>
+            {endMessage}
             <button className="button" onClick={this.restartGameAsX}>
               Play Again as <br/> {fontAwesomeX}</button>
             <button className="button" onClick={this.restartGameAsO}>
@@ -67,7 +67,8 @@ var Game = React.createClass({
     }
 
     return (
-      <div>
+      <div className="game">
+        <h1>Unbeatable Tic-Tac-Toe</h1>
         {modal}
         <BoardComponent board={this.state.board} updateBoard={this.updateBoard}/>
       </div>
