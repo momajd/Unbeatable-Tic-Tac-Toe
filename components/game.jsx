@@ -42,18 +42,25 @@ var Game = React.createClass({
   render: function() {
     var modal;
     if (this.state.board.isWon() || this.state.board.isTie() ) {
-      // we don't need to check if player won because that should never happen
+      // we don't need to check if user won because that should never happen
       var text = this.state.board.isWon() ?
-                  "No surprise here..." :
-                  "Not bad; a tie is the best possible outcome" ;
+                  <p className="end-message">No surprise there...</p> :
+                  <p className="end-message">Not too bad, considering that it's impossible to win..</p> ;
+
+      var fontAwesomeO = <i className="fa fa-circle-o fa-4x" aria-hidden="true"></i>;
+      var fontAwesomeX = <i className='fa fa-times fa-4x' aria-hidden='true'></i>;
 
       modal = (
         // TODO link to github on modal
         <div className='modal-screen'>
           <div className='modal-content'>
             <p>{text}</p>
-            <button onClick={this.restartGameAsX}>Play Again as X</button>
-            <button onClick={this.restartGameAsO}>Play Again as O</button>
+            <button className="button" onClick={this.restartGameAsX}>
+              Play Again as <br/> {fontAwesomeX}</button>
+            <button className="button" onClick={this.restartGameAsO}>
+              Play Again as <br/> {fontAwesomeO}</button>
+            <br/>
+            <i className="fa fa-github fa-2x" aria-hidden="true"></i>
           </div>
         </div>
       );
